@@ -53,51 +53,51 @@ Sub Object 1: Steering Wheel
     Name 4 things you'll find on the:    Steering Wheel
         1) paddle shifters
         2) 'cruise control' controls
-        3) 
-        4) 
+        3) audio volume controls
+        4) telephone kit buttons
     Name 2 things you can do with the:   Steering Wheel
         1) adjust cruise control settings.
-        2)
+        2) adjust audio volume up and down
         
 Sub Object 2: Instrument Cluster
     Name 4 things you'll find on the:   Instrument Cluster
-        1)
-        2)
-        3)
-        4)
+        1) speedometer
+        2) fuel gauge
+        3) odometer
+        4) tachometer
     Name 3 things you can do with the:   Instrument Cluster
-        1)
-        2)
-        3)
+        1) calculate remaining fuel
+        2) reset distance travelled
+        3) determine current speed 
     
 Sub Object 3: Environment Controls
     Name 3 things you'll find on the:    Environment Controls
-        1)
-        2)
-        3)
+        1) airflow direction toggle
+        2) temperature dial
+        3) recirculation button
     Name 3 things you can do with the:   Environment Controls
-        1)
-        2)
-        3)
+        1) set desired temperature
+        2) recirculate air
+        3) change direction of airflow
 
 Sub Object 4: Infotainment System
     Name 3 things you'll find on the:    Infotainment System
-        1)
-        2)
-        3)
+        1) volume control
+        2) buttons to toggle cd/radio/phone/satnav
+        3) search buttons for finding FM/AM radio station
     Name 3 things you can do with the:   Infotainment System
-        1)
-        2)
-        3)
+        1) change volume
+        2) choose desired device
+        3) search/choose radio station
 
 Sub Object 5: Seat 
     Name 3 things you'll find on the:    Seat
-        1)
-        2)
-        3)
+        1) slider to move forward and back
+        2) slider to tilt seatback forwards/backwards
+        3) seat position memory buttons
     Name 2 things you can do with the:   Seat
-        1)
-        2)
+        1) tilt back of seat forwards/backwards
+        2) slide seat towards/away from steering wheel
 */
 
 /*
@@ -154,61 +154,7 @@ Part 1b Assignment: 1 Step
         'int float double bool char std::string'.
 */
 
-/*
-Thing 1)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
 
-/*
-Thing 2)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 3)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 4)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
 
  /*
 Part 1c - Lesson
@@ -279,19 +225,7 @@ Define an object that is made of 5 sub-objects.
     you'll define these 5 sub-objects in Part 1d.
 */
 
-/*
-Thing 10)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
+
 
 /*
 Part 1d - Lesson
@@ -384,75 +318,6 @@ each property for UDTs 5 - 9.
 Step 3 is written below UDTs 5 - 9
 */
 
-/*
-Thing 5)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 6)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 7)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 8)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 9)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
 
 /*
 ===================
@@ -471,9 +336,146 @@ MOVE THEM BELOW this block comment and put them in numerical order
 After you have MOVED your 10 UDTs, send me a DM with your pull request link.
 I will review the pseudo-code that you have written.
 */
+/*
 
+Thing 1) Coffee maker
+5 properties:
+    1) maximum water temperature
+    2) cup size
+    3) whether cup full (bool)
+    4) type of coffee (espesso/cappuccino/etc)
+    5) amount of water remaining in reservoir
+3 things it can do:
+    1) heat water
+    2) deliver correct quantity of heated water
+    3) beep when pouring complete
+ */
 
+/*
+Thing 2) Dentist
+5 properties:
+    1) number of patients per day
+    2) maximum number of patients per week
+    3) disposable equipment costs per week
+    4) profit per week
+    5) number of staff
+3 things it can do:
+    1) treat patient
+    2) charge patient fee for service
+    3) pay staff wages
+ */
 
+/*
+Thing 3) Automatic public toilet
+5 properties:
+    1) volume of cistern
+    2) volume of cleaning solution reservoir
+    3) number of uses per day
+    4) brightness of lights
+    5) amount of water per flush
+3 things it can do:
+    1) flush
+    2) illuminate
+    3) clean
+ */
+
+/*
+Thing 4) ATM
+5 properties:
+    1) current amount in machine in dollars
+    2) maximum amount machine can hold in dollars
+    3) number of customers per day
+    4) customer account number
+    5) customer pin number
+3 things it can do:
+    1) dispense cash
+    2) display balance
+    3) dispense receipt
+ */
+
+/*
+Thing 5) Cabin
+5 properties:
+    1) Height in cm (float)
+    2) Depth in cm (float)
+    3) Width in cm (float)
+    4) Wall colour (std::string)
+    5) Capacity in persons (int)
+3 things it can do:
+    1) set size
+    2) set weight
+    3) set capacity
+ */
+
+/*
+Thing 6) Door
+5 properties:
+    1) Height in cm (float)
+    2) Width in cm (float)
+    3) Speed of movement (float)
+    4) Colour (std::string)
+    5) Status open vs closed (bool)
+3 things it can do:
+    1) Open
+    2) Close 
+    3) Get status (open or closed)
+ */
+
+/*
+Thing 7) Panel
+5 properties:
+    1) Height in cm (int)
+    2) Width in cm (int)
+    3) Number of buttons (int)
+    4) Size of buttons (int)
+    5) Brightness of backlighting (int)
+3 things it can do:
+    1) Choose panel size
+    2) Choose number of buttons
+    3) Change size of buttons
+ */
+
+/*
+Thing 8) Control
+5 properties:
+    1) current floor number (int)
+    2) requested floor number (int)
+    3) maximum floor number (int)
+    4) minimum floor number (int)
+    5) alarm on (bool)
+3 things it can do:
+    1) choose floor number
+    2) raise alarm
+    3) call assistance
+ */
+
+/*
+Thing 9) Motor
+5 properties:
+    1) speed of movement (float)
+    2) acceleration (float)
+    3) deceleration (float)
+    4) distance between floors (float)
+    5) weight of passengers (float)
+3 things it can do:
+    1) move up
+    2) move down
+    3) stop
+ */
+
+/*
+Thing 10) Elevator
+5 properties:
+    1) Cabin
+    2) Door
+    3) Panel
+    4) Control
+    5) Motor
+3 things it can do:
+    1) Move up and down
+    2) Open and close
+    3) Remember floor chosen by user
+ */
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
