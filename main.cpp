@@ -340,11 +340,11 @@ I will review the pseudo-code that you have written.
 
 Thing 1) Coffee maker
 5 properties:
-    1) maximum water temperature
-    2) cup size
+    1) maximum water temperature (float)
+    2) cup size (int)
     3) whether cup full (bool)
-    4) type of coffee (espesso/cappuccino/etc)
-    5) amount of water remaining in reservoir
+    4) type of coffee (espesso/cappuccino/etc) (std::string)
+    5) amount of water remaining in reservoir (float)
 3 things it can do:
     1) heat water
     2) deliver correct quantity of heated water
@@ -354,11 +354,11 @@ Thing 1) Coffee maker
 /*
 Thing 2) Dentist
 5 properties:
-    1) number of patients per day
-    2) maximum number of patients per week
-    3) disposable equipment costs per week
-    4) profit per week
-    5) number of staff
+    1) number of patients per day (int)
+    2) maximum number of patients per week (int)
+    3) disposable equipment costs per week (float)
+    4) profit per week (float)
+    5) number of staff (int)
 3 things it can do:
     1) treat patient
     2) charge patient fee for service
@@ -368,11 +368,11 @@ Thing 2) Dentist
 /*
 Thing 3) Automatic public toilet
 5 properties:
-    1) volume of cistern
-    2) volume of cleaning solution reservoir
-    3) number of uses per day
-    4) brightness of lights
-    5) amount of water per flush
+    1) volume of cistern (float)
+    2) volume of cleaning solution reservoir (float)
+    3) number of uses per day (int)
+    4) brightness of lights (int)
+    5) amount of water per flush (float)
 3 things it can do:
     1) flush
     2) illuminate
@@ -382,11 +382,11 @@ Thing 3) Automatic public toilet
 /*
 Thing 4) ATM
 5 properties:
-    1) current amount in machine in dollars
-    2) maximum amount machine can hold in dollars
-    3) number of customers per day
-    4) customer account number
-    5) customer pin number
+    1) current amount in machine in dollars (float)
+    2) maximum amount machine can hold in dollars (float)
+    3) number of customers per day (int)
+    4) customer account number (int)
+    5) customer pin number (int)
 3 things it can do:
     1) dispense cash
     2) display balance
@@ -396,9 +396,9 @@ Thing 4) ATM
 /*
 Thing 5) Cabin
 5 properties:
-    1) Height in cm (float)
-    2) Depth in cm (float)
-    3) Width in cm (float)
+    1) Volume in m^3 (float)
+    2) Floor area in cm^2 (float)
+    3) Number of lights (int)
     4) Wall colour (std::string)
     5) Capacity in persons (int)
 3 things it can do:
@@ -424,8 +424,8 @@ Thing 6) Door
 /*
 Thing 7) Panel
 5 properties:
-    1) Height in cm (int)
-    2) Width in cm (int)
+    1) Area in cm^2 (int)
+    2) Material (std::string)
     3) Number of buttons (int)
     4) Size of buttons (int)
     5) Brightness of backlighting (int)
