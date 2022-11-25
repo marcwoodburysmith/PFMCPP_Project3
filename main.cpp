@@ -201,6 +201,51 @@ Thing 1) Coffee maker
     3) beep when pouring complete
  */
 
+struct CoffeeMaker
+{
+    //maximum water temperature in F
+    float maxWaterTemp = 75;
+    //cup size in mls
+    int cupSize = 200;
+    //indicate whether cup full
+    bool cupFull = false;
+    //type of coffee (espresso/cappuccino/etc)
+    std::string typeOfCoffee = "espresso";
+    //amount of water remaining in reservoir in mls
+    float waterRemaining = 500;
+
+    struct Cup
+    {
+        //cup volume in mls
+        float cupVolume = 250;
+        //cup material
+        std::string material = "glass";
+        //cup height in cm
+        float cupHeight = 12;
+        //cup colour
+        std::string cupColour = "black";
+        //indicate whether cup clean
+        bool cupClean = true;
+
+        //fill cup
+        void setCupVolume(float cupVolume);
+        //get fill status
+        bool getCleanStatus(bool cupClean); //indcates whether cup clean or not
+        //set fill status
+        void setCupColour(std::string cupColour);
+    };
+
+    //heat water
+    void heatWater();
+    //deliver correct quantity of heated water
+    void fillCup(int cupSize);
+    //beep when pouring complete
+    void beepWhenCupFull(bool cupFull);
+
+    Cup customerCup;
+
+};
+
 /*
 Thing 2) Dentist
 5 properties:
@@ -215,6 +260,51 @@ Thing 2) Dentist
     3) pay staff wages
  */
 
+struct Dentist 
+{
+    
+    //number of patients per day
+    int numPatients = 8;
+    //maximum number of patients per week
+    int maxPatientsPerWeek = 40;
+    //disposable equipment costs per week
+    double costDisposableEquipment = 2000;
+    //profit per week (float)
+    double profitPerWeek = 20000;
+    //number of staff (int)
+    int numStaff = 20;
+
+    struct Person
+    {
+    //personName
+    std::string personName = "Mary";
+    //person age in years
+    int personAge = 35;
+    //person gender
+    std::string personGender = "female";
+    //personInsuranceCompany 
+    std::string personInsuranceCompany = "No Insurance";
+    //date of last check (ddmmyyyy)
+    int dateOfLastCheck = 01112022;
+
+    //return patient's insurance company
+    std::string getInsuranceCompany(std::string personInsuranceCompany); //returns name of patient's insurance company
+    //dental treatment deemed necessary
+    int dateOfNextDentalAppointment(int dateOfLastCheck); //returns month when next check will be
+    //cost of work undertaken
+    float costOfDentalTreatment(); //returns cost of treatment
+    };
+
+    //treat patient
+    void treatPatient(Person personName, std::string treatmentClassification);
+    //charge patient fee for service
+    float feeForService(std::string treatmentClassification); //returns cost in dollars of treatment
+    //pay staff wages
+    float payStaff(std::string staffName); //returns staff member's salary
+
+    Person newPatient;
+};
+
 /*
 Thing 3) Automatic public toilet
 5 properties:
@@ -228,6 +318,29 @@ Thing 3) Automatic public toilet
     2) illuminate
     3) clean
  */
+struct AutomaticPublicToilet
+{
+
+    //volume of cistern in litres 
+    float volumeOfCistern = 5;
+    //volume of cleaning reservoir in litres
+    float volumeOfCleaningReservoir = 20;
+    //number of uses per day
+    int numberOfFlushesPerDay = 40;
+    //brightness of lights sclaaled 1 to 10
+    int brightnessOfLights = 4;
+    //amount of water per flush in litres
+    float volumeOfWaterPerFlush = 2;
+
+    //flush
+    void flushToilet();
+    //illuminate
+    void changeBrightness(int requestedBrightness);
+    //clean
+    void clean();
+
+};
+
 
 /*
 Thing 4) ATM
@@ -243,6 +356,29 @@ Thing 4) ATM
     3) dispense receipt
  */
 
+struct ATM
+{
+
+    //current amount in machine in dollars
+    double currentAmountAvailable = 20000;
+    //maximum amount machine can hold in dollars
+    double maxAmountAvailable = 40000;
+    //number of customers per day
+    int numCustomers = 200;
+    //customer account number
+    int accountNumCurrentCustomer = 12345678;
+    //customer pin number
+    int pinNumCurrentCustomer = 1234;
+
+    //dispense cash
+    void dispenseCash();
+    //display balance
+    float displayBalance(int accountNumCurrentCustomer); //returns the customer's balance
+    //dispense receipt
+    void dispenseReceipt(int accountNumCurrentCustomer, double amountWithdrawn);
+};
+
+
 /*
 Thing 5) Cabin
 5 properties:
@@ -257,6 +393,29 @@ Thing 5) Cabin
     3) set capacity
  */
 
+struct Cabin
+{
+
+    //Volume in cubic metres
+    double volumeOfElevatorCabin = 8;
+    //Floor area in squared metres
+    double floorArea = 3.3;
+    //Number of lights
+    int numLights = 4;
+    //Wall colour
+    std::string wallColour = "white";
+    //Capacity in persons
+    int capacityInPersons = 8;
+
+    //set size of cabin
+    double setVolumeOfCabin(double floorArea, int capacityInPersons); //returns volume of cabin
+    //set number of lights
+    int setNumberOfLights(float floorArea, int maxBrightness); //returns number of lights required
+    //get capacity in number of persons
+    int getCapacity(float volumeOfElevatorCabin); //returns maximum capacity for set size
+};
+
+
 /*
 Thing 6) Door
 5 properties:
@@ -270,6 +429,28 @@ Thing 6) Door
     2) Close 
     3) Get status (open or closed)
  */
+struct Door
+{
+
+    //Height in metres
+    double doorHeight = 2.4;
+    //Width in metres (float)
+    double doorWidth = 1.2;
+    //Speed of movement in metres per second
+    double speedOfDoorMovement = 0.5;
+    //Colour (std::string)
+    std::string doorColour = "grey";
+    //Whether door is closed (false) or open (true)
+    bool doorClosureStatus = false;
+
+    //Open
+    void openDoor();
+    //Close 
+    void closeDoor();
+    //Get status (open or closed)
+    bool doorStatus(bool doorClosureStatus); //returns true or false according to whether door closed/open
+};
+
 
 /*
 Thing 7) Panel
@@ -285,6 +466,31 @@ Thing 7) Panel
     3) Change size of buttons
  */
 
+struct Panel
+{
+
+    //Area in squared cm
+    float areaOfControlPanel = 450;
+    //Material
+    std::string panelMaterial = "aluminium";
+    //Number of buttons
+    int numPanelButtons = 24;
+    //Diameter of individual buttons in mm
+    float buttonDiameter = 10;
+    //Brightness of backlighting on scale 1 to 10
+    int panelBacklightBrightness = 4; 
+
+    //Choose panel size
+    float setPanelSize(int nunmPanelButtons, float buttonSize);  //returns panel size for fixed button number/button size
+    //Choose number of buttons
+    int setNumberOfControlButtons(float areaOfControlPanel); //returns number of control buttons for specified panel size
+    //Change size of buttons
+    float calculateButtonArea(float buttonDiameter); //calculate area from diameter
+    
+};
+
+
+
 /*
 Thing 8) Control
 5 properties:
@@ -299,6 +505,29 @@ Thing 8) Control
     3) call assistance
  */
 
+struct Control
+{
+
+    //current floor number
+    int currentFloor = 1;
+    //requested floor number
+    int requestedFloor = 1;
+    //maximum floor number
+    int maximumFloor = 12;
+    //minimum floor number
+    int minimumFloor = -1;
+    //alarm activation status
+    bool alarmActivated = false;
+
+    //choose floor number
+    int getRequestedFloorNumber(int requestedFloor); //returns requested floor number
+    //activate alarm
+    void activateAlarm(bool alarmActivated, bool buttonPressed);
+    //set maximum floor
+    void setMaximumFloor(int maximumFloor);
+};
+
+
 /*
 Thing 9) Motor
 5 properties:
@@ -312,6 +541,29 @@ Thing 9) Motor
     2) move down
     3) stop
  */
+struct Motor
+{
+
+    //speed of movement in metres per second
+    double speedOfElevator = 4.3;
+    //acceleration (float)
+    double elevatorAcceleration = 0.8;
+    //deceleration (float)
+    double elevatorDeceleration = 0.8;
+    //distance between floors
+    double distanceBetweenFloors = 3.6;
+    //weight of passengers 
+    double passengerWeight = 600;
+
+    //Elevator accelerate
+    void elevatorAccelerate();
+    //Elevator decelerate
+    void elevatorDecelerate();
+    //Get weight of passengers
+    double getWeightOfPassengers(int numberOfPassengers, int AverageWeight); //returns current weight of passengers
+};
+
+
 
 /*
 Thing 10) Elevator
@@ -326,6 +578,29 @@ Thing 10) Elevator
     2) Open and close
     3) Remember floor chosen by user
  */
+struct Elevator
+{
+
+    //Make new Cabin
+    Cabin lobbyElevatorCabinOne;
+    //Make new Door
+    Door lobbyElevatorDoor_one, lobbyElevatorDoor_two;
+    //Make new Panel
+    Panel lobbyElevatorPanel;
+    //Make new Control
+    Control lobbyElevatorControl;
+    //Make new Motor
+    Motor lobbyElevatorMotor;
+
+    //Move up and down
+    void elevatorAscend(Control requestedFloor, Motor elevatorAcceleration);
+    //Open and close
+    void openDoor(Door doorClosureStatus, Door speedOfDoorMovement);
+    //Remember floor chosen by user
+    void storeRequestedFloor(Control requestedFloor);
+};
+
+
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
