@@ -205,10 +205,10 @@ struct CoffeeMaker
 {
     //maximum water temperature in F
     float maxWaterTemp = 75;
-    //cup size in mls
-    int cupSize = 200;
-    //indicate whether cup full
-    bool cupFull = false;
+    //Energy save mode
+    bool energyMode = true;
+    //indicate whether milk requested
+    bool milkRequested = false;
     //type of coffee (espresso/cappuccino/etc)
     std::string typeOfCoffee = "espresso";
     //amount of water remaining in reservoir in mls
@@ -217,28 +217,28 @@ struct CoffeeMaker
     struct Cup
     {
         //cup volume in mls
-        float cupVolume = 250;
+        float volume = 250;
         //cup material
         std::string material = "glass";
         //cup height in cm
-        float cupHeight = 12;
+        float height = 12;
         //cup colour
-        std::string cupColour = "black";
+        std::string colour = "black";
         //indicate whether cup clean
-        bool cupClean = true;
+        bool clean = true;
 
         //fill cup
-        void setCupVolume(float cupVolume);
+        void setCupVolume(float volume);
         //get fill status
-        bool getCleanStatus(bool cupClean); //indcates whether cup clean or not
+        bool getCleanStatus(bool clean); //indcates whether cup clean or not
         //set fill status
-        void setCupColour(std::string cupColour);
+        void setCupColour(std::string colour);
     };
 
     //heat water
     void heatWater();
-    //deliver correct quantity of heated water
-    void fillCup(int cupSize);
+    //return requested type of coffee
+    std::string coffeeType();
     //beep when pouring complete
     void beepWhenCupFull(bool cupFull);
 
@@ -276,31 +276,31 @@ struct Dentist
 
     struct Person
     {
-    //personName
-    std::string personName = "Mary";
-    //person age in years
-    int personAge = 35;
-    //person gender
-    std::string personGender = "female";
-    //personInsuranceCompany 
-    std::string personInsuranceCompany = "No Insurance";
-    //date of last check (ddmmyyyy)
-    int dateOfLastCheck = 01112022;
+        //personName
+        std::string name = "Mary";
+        //person age in years
+        int age = 35;
+        //person gender
+        std::string gender = "female";
+        //personInsuranceCompany 
+        std::string insuranceCompany = "No Insurance";
+        //date of last check (ddmmyyyy)
+        int dateOfLastCheck = 01112022;
 
-    //return patient's insurance company
-    std::string getInsuranceCompany(std::string personInsuranceCompany); //returns name of patient's insurance company
-    //dental treatment deemed necessary
-    int dateOfNextDentalAppointment(int dateOfLastCheck); //returns month when next check will be
-    //cost of work undertaken
-    float costOfDentalTreatment(); //returns cost of treatment
+        //return patient's insurance company
+        std::string getInsuranceCompany(std::string insuranceCompany); //returns name of patient's insurance company
+        //dental treatment deemed necessary
+        int dateOfNextDentalAppointment(int dateOfLastCheck); //returns month when next check will be
+        //cost of work undertaken
+        float costOfDentalTreatment(); //returns cost of treatment
     };
 
     //treat patient
-    void treatPatient(Person personName, std::string treatmentClassification);
+    void treatPatient(Person name, std::string treatmentClassification);
     //charge patient fee for service
     float feeForService(std::string treatmentClassification); //returns cost in dollars of treatment
     //pay staff wages
-    float payStaff(std::string staffName); //returns staff member's salary
+    float payStaff(std::string name); //returns staff member's salary
 
     Person newPatient;
 };
@@ -433,22 +433,22 @@ struct Door
 {
 
     //Height in metres
-    double doorHeight = 2.4;
+    double height = 2.4;
     //Width in metres (float)
-    double doorWidth = 1.2;
+    double width = 1.2;
     //Speed of movement in metres per second
-    double speedOfDoorMovement = 0.5;
+    double speedOfMovement = 0.5;
     //Colour (std::string)
-    std::string doorColour = "grey";
+    std::string colour = "grey";
     //Whether door is closed (false) or open (true)
-    bool doorClosureStatus = false;
+    bool closureStatus = false;
 
     //Open
-    void openDoor();
+    void open();
     //Close 
-    void closeDoor();
+    void close();
     //Get status (open or closed)
-    bool doorStatus(bool doorClosureStatus); //returns true or false according to whether door closed/open
+    bool status(bool closureStatus); //returns true or false according to whether door closed/open
 };
 
 
@@ -470,20 +470,20 @@ struct Panel
 {
 
     //Area in squared cm
-    float areaOfControlPanel = 450;
+    float area = 450;
     //Material
-    std::string panelMaterial = "aluminium";
+    std::string material = "aluminium";
     //Number of buttons
-    int numPanelButtons = 24;
+    int numButtons = 24;
     //Diameter of individual buttons in mm
     float buttonDiameter = 10;
     //Brightness of backlighting on scale 1 to 10
-    int panelBacklightBrightness = 4; 
+    int backlightBrightness = 4; 
 
     //Choose panel size
-    float setPanelSize(int nunmPanelButtons, float buttonSize);  //returns panel size for fixed button number/button size
+    float setSize(int nunmPanelButtons, float buttonSize);  //returns panel size for fixed button number/button size
     //Choose number of buttons
-    int setNumberOfControlButtons(float areaOfControlPanel); //returns number of control buttons for specified panel size
+    int setNumberOfControlButtons(float area); //returns number of control buttons for specified panel size
     //Change size of buttons
     float calculateButtonArea(float buttonDiameter); //calculate area from diameter
     
@@ -582,22 +582,22 @@ struct Elevator
 {
 
     //Make new Cabin
-    Cabin lobbyElevatorCabinOne;
+    Cabin cabin;
     //Make new Door
-    Door lobbyElevatorDoor_one, lobbyElevatorDoor_two;
+    Door leftDoor, rightDoor;
     //Make new Panel
-    Panel lobbyElevatorPanel;
+    Panel panel;
     //Make new Control
-    Control lobbyElevatorControl;
+    Control control;
     //Make new Motor
-    Motor lobbyElevatorMotor;
+    Motor motor;
 
     //Move up and down
-    void elevatorAscend(Control requestedFloor, Motor elevatorAcceleration);
+    void elevatorAscend(int requestedFloor, double elevatorAcceleration);
     //Open and close
-    void openDoor(Door doorClosureStatus, Door speedOfDoorMovement);
+    void openDoor();
     //Remember floor chosen by user
-    void storeRequestedFloor(Control requestedFloor);
+    void storeRequestedFloor(int requestedFloor);
 };
 
 
