@@ -254,8 +254,8 @@ struct Dentist
     
     int numPatients = 8;
     int maxPatientsPerWeek = 40;
-    float costDisposableEquipment = 2000;
-    float profitPerWeek = 20000;
+    int costDisposableEquipment = 2000;
+    int profitPerWeek = 20000;
     int numStaff = 20;
 
     struct Person
@@ -273,7 +273,7 @@ struct Dentist
 
     int returnLastCheck(std::string name);
     float feeForService(std::string treatmentClassification);
-    float payStaff(); 
+    int payStaff(); 
 
     Person newPatient;
 };
@@ -305,14 +305,18 @@ int Dentist::returnLastCheck(std::string name)
 float Dentist::feeForService(std::string treatmentClassification)
 {
     if( treatmentClassification == "check up" )
-    {return 500;} FIXME
+    {
+        return 500;
+    }
     else
-    {return 1000;} FIXME
+    {
+        return 1000;
+    }
 }
 
-float Dentist::payStaff()
+int Dentist::payStaff()
 {
-    return (profitPerWeek - costDisposableEquipment)/static_cast<float>(numStaff); FIXME
+    return (profitPerWeek - costDisposableEquipment)/ numStaff; 
 }
 
 
@@ -382,28 +386,28 @@ void ATM::dispenseReceipt(double amountWithdrawn)
 
 struct Cabin
 {
-    double volumeOfElevatorCabin = 8;
-    double floorArea = 3.3;
+    int volumeOfElevatorCabin = 8;
+    int floorArea = 3;
     int numLights = 4;
     std::string wallColour = "white";
     int capacityInPersons = 8;
 
-    int setCapacityOfCabin(double flrArea, double vol); 
-    int setNumberOfLights(float flrArea, int maxBrightness); 
+    int setCapacityOfCabin(int flrArea, int vol); 
+    int setNumberOfLights(int flrArea, int maxBrightness); 
     int getCapacity(); 
 };
 
-int Cabin::setCapacityOfCabin(double flrArea, double vol)
+int Cabin::setCapacityOfCabin(int flrArea, int vol)
 {
     volumeOfElevatorCabin = vol;
     floorArea = flrArea;
-    capacityInPersons = static_cast<int>(volumeOfElevatorCabin / floorArea); FIXME
-    return capacityInPersons;
+    int capacity = volumeOfElevatorCabin / floorArea; 
+    return capacity;
 }
 
-int Cabin::setNumberOfLights(float flrArea, int maxBrightness)
+int Cabin::setNumberOfLights(int flrArea, int maxBrightness)
 {
-    return maxBrightness / static_cast<int>(flrArea); FIXME
+    return maxBrightness / flrArea;
 }
 
 int Cabin::getCapacity()
@@ -446,23 +450,23 @@ struct Panel
     float area = 450;
     std::string material = "aluminium";
     int numButtons = 24;
-    float buttonDiameter = 10;
+    int buttonDiameter = 10;
     int backlightBrightness = 4; 
 
-    float setSize(int numPanelButtons, float buttonSize); 
-    int setNumberOfControlButtons(float a); 
+    int setSize(int numPanelButtons, int buttonSize); 
+    int setNumberOfControlButtons(int a); 
     float calculateButtonArea(float diam); 
     
 };
 
-float Panel::setSize(int numPanelButtons, float buttonSize)
+int Panel::setSize(int numPanelButtons, int buttonSize)
 {
-    return static_cast<float>(numPanelButtons) * buttonSize; FIXME
+    return numPanelButtons * buttonSize; 
 }
 
-int Panel::setNumberOfControlButtons(float a)
+int Panel::setNumberOfControlButtons(int a)
 {
-    return static_cast<int>(a / buttonDiameter); FIXME
+    return a / buttonDiameter; 
 }
 
 float Panel::calculateButtonArea(float diam)
