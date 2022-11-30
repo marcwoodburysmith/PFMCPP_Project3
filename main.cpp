@@ -187,7 +187,7 @@ float Person::run( float howFast, bool startWithLeftFoot )
 struct CoffeeMaker
 {   
     float maxWaterTemp = 75;
-    bool energyMode = true;
+    bool switchedOn = false;
     bool milkRequested = false;
     std::string typeOfCoffee = "espresso";
     float waterRemaining = 500;
@@ -208,7 +208,7 @@ struct CoffeeMaker
 
     void heatWater();
     std::string coffeeType();
-    void beepWhenCupFull(bool cupFull);
+    void switchOff();
 
     Cup customerCup;
 
@@ -233,7 +233,7 @@ void CoffeeMaker::Cup::setCupColour(std::string col)
 
 void CoffeeMaker::heatWater()
 {
-
+    switchedOn = true;
 }
 
 std::string CoffeeMaker::coffeeType()
@@ -241,9 +241,9 @@ std::string CoffeeMaker::coffeeType()
     return typeOfCoffee;
 }
 
-void CoffeeMaker::beepWhenCupFull(bool cupFull)
+void CoffeeMaker::switchOff()
 {
-   
+   switchedOn = false;
 }
 
 
@@ -254,8 +254,8 @@ struct Dentist
     
     int numPatients = 8;
     int maxPatientsPerWeek = 40;
-    double costDisposableEquipment = 2000;
-    double profitPerWeek = 20000;
+    float costDisposableEquipment = 2000;
+    float profitPerWeek = 20000;
     int numStaff = 20;
 
     struct Person
@@ -268,12 +268,12 @@ struct Dentist
 
         std::string getInsuranceCompany(std::string insurance); 
         int dateOfNextDentalAppointment(int lastCheck); 
-        float costOfDentalTreatment(); 
+        void setGender(std::string gen); 
     };
 
-    void treatPatient(Person name, std::string treatmentClassification);
+    int returnLastCheck(std::string name);
     float feeForService(std::string treatmentClassification);
-    float payStaff(std::string name); 
+    float payStaff(); 
 
     Person newPatient;
 };
@@ -291,15 +291,15 @@ int Dentist::Person::dateOfNextDentalAppointment(int lastCheck)
     return dateOfLastCheck + 1;
 }
 
-float Dentist::Person::costOfDentalTreatment()
+void Dentist::Person::setGender(std::string gen)
 {
-    
+    gender = gen;
 }
 
-void Dentist::treatPatient(Person name, std::string treatmentClassification)
+int Dentist::returnLastCheck(std::string name)
 {
-    std::string patient = newPatient.name;
-    std::string treatment = treatmentClassification;
+    newPatient.name = name;
+    return newPatient.dateOfLastCheck;
 }
 
 float Dentist::feeForService(std::string treatmentClassification)
@@ -310,9 +310,9 @@ float Dentist::feeForService(std::string treatmentClassification)
     {return 1000;}
 }
 
-float Dentist::payStaff(std::string name)
+float Dentist::payStaff()
 {
-    return (profitPerWeek - costDisposableEquipment)/numStaff;
+    return (profitPerWeek - costDisposableEquipment)/static_cast<float>(numStaff);
 }
 
 
@@ -358,8 +358,8 @@ struct ATM
     int pinNumCurrentCustomer = 1234;
 
     void dispenseCash();
-    float displayBalance(int accountNumCurrentCustomer); 
-    void dispenseReceipt(int accountNumCurrentCustomer, double amountWithdrawn);
+    int displayBalance(int accountNum); 
+    void dispenseReceipt(double amountWithdrawn);
 };
 
 void ATM::dispenseCash()
@@ -367,13 +367,13 @@ void ATM::dispenseCash()
     
 }
 
-float ATM::displayBalance(int accountNum)
+int ATM::displayBalance(int accountNum)
 {
     accountNumCurrentCustomer = accountNum;
     return accountNumCurrentCustomer;
 }
 
-void ATM::dispenseReceipt(int accountNumCurrentCustomer, double amountWithdrawn)
+void ATM::dispenseReceipt(double amountWithdrawn)
 {
     currentAmountAvailable -= amountWithdrawn;
 }
@@ -388,22 +388,22 @@ struct Cabin
     std::string wallColour = "white";
     int capacityInPersons = 8;
 
-    double setCapacityOfCabin(double flrArea, int capacityInPersons); 
+    int setCapacityOfCabin(double flrArea, double vol); 
     int setNumberOfLights(float flrArea, int maxBrightness); 
     int getCapacity(); 
 };
 
-double Cabin::setCapacityOfCabin(double flrArea, int vol)
+int Cabin::setCapacityOfCabin(double flrArea, double vol)
 {
     volumeOfElevatorCabin = vol;
     floorArea = flrArea;
-    capacityInPersons = volumeOfElevatorCabin / floorArea;
+    capacityInPersons = static_cast<int>(volumeOfElevatorCabin / floorArea);
     return capacityInPersons;
 }
 
 int Cabin::setNumberOfLights(float flrArea, int maxBrightness)
 {
-    return maxBrightness / flrArea;
+    return maxBrightness / static_cast<int>(flrArea);
 }
 
 int Cabin::getCapacity()
@@ -449,25 +449,27 @@ struct Panel
     float buttonDiameter = 10;
     int backlightBrightness = 4; 
 
-    float setSize(int nunmPanelButtons, float buttonSize); 
-    int setNumberOfControlButtons(float area); 
-    float calculateButtonArea(float buttonDiameter); 
+    float setSize(int numPanelButtons, float buttonSize); 
+    int setNumberOfControlButtons(float a); 
+    float calculateButtonArea(float diam); 
     
 };
 
-float Panel::setSize(int nunmPanelButtons, float buttonSize)
+float Panel::setSize(int numPanelButtons, float buttonSize)
 {
-    return nunmPanelButtons * buttonSize;
+    return static_cast<float>(numPanelButtons) * buttonSize;
 }
 
-int Panel::setNumberOfControlButtons(float area)
+int Panel::setNumberOfControlButtons(float a)
 {
-    return area / buttonDiameter;
+    return static_cast<int>(a / buttonDiameter);
 }
 
-float Panel::calculateButtonArea(float buttonDiameter)
+float Panel::calculateButtonArea(float diam)
 {
-    return 3.14 * (buttonDiameter / 2) * (buttonDiameter / 2);
+    float buttonArea;
+    buttonArea =  3.14f * (diam / 2) * (diam / 2);
+    return buttonArea;
 }
 
 
@@ -506,8 +508,8 @@ struct Motor
     double speedOfElevator = 4.3;
     double elevatorAcceleration = 0.8;
     double elevatorDeceleration = 0.8;
-    double distanceBetweenFloors = 3.6;
-    double passengerWeight = 600;
+    std::string direction = "up"; 
+    int passengerWeight = 600;
 
     double elevatorAccelerate();
     double elevatorDecelerate();
@@ -539,14 +541,25 @@ struct Elevator
     Control control;
     Motor motor;
 
-    void elevatorAscend(int requestedFloor, double elevatorAcceleration);
+    void setDirection(int requested, int current);
     void openDoor();
     void storeRequestedFloor(int requestedFloor);
 };
 
-void Elevator::elevatorAscend(int requestedFloor, double elevatorAcceleration)
+
+void Elevator::setDirection(int requested, int current)
 {
+    control.currentFloor = current;
+    control.requestedFloor = requested;
     
+    if( control.currentFloor > control.requestedFloor)
+    {
+        motor.direction = "up";
+    }
+    else
+    {
+        motor.direction = "down";
+    }
 }
 
 void Elevator::openDoor()
