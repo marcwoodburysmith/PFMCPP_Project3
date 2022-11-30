@@ -305,14 +305,14 @@ int Dentist::returnLastCheck(std::string name)
 float Dentist::feeForService(std::string treatmentClassification)
 {
     if( treatmentClassification == "check up" )
-    {return 500;}
+    {return 500;} FIXME
     else
-    {return 1000;}
+    {return 1000;} FIXME
 }
 
 float Dentist::payStaff()
 {
-    return (profitPerWeek - costDisposableEquipment)/static_cast<float>(numStaff);
+    return (profitPerWeek - costDisposableEquipment)/static_cast<float>(numStaff); FIXME
 }
 
 
@@ -397,13 +397,13 @@ int Cabin::setCapacityOfCabin(double flrArea, double vol)
 {
     volumeOfElevatorCabin = vol;
     floorArea = flrArea;
-    capacityInPersons = static_cast<int>(volumeOfElevatorCabin / floorArea);
+    capacityInPersons = static_cast<int>(volumeOfElevatorCabin / floorArea); FIXME
     return capacityInPersons;
 }
 
 int Cabin::setNumberOfLights(float flrArea, int maxBrightness)
 {
-    return maxBrightness / static_cast<int>(flrArea);
+    return maxBrightness / static_cast<int>(flrArea); FIXME
 }
 
 int Cabin::getCapacity()
@@ -457,12 +457,12 @@ struct Panel
 
 float Panel::setSize(int numPanelButtons, float buttonSize)
 {
-    return static_cast<float>(numPanelButtons) * buttonSize;
+    return static_cast<float>(numPanelButtons) * buttonSize; FIXME
 }
 
 int Panel::setNumberOfControlButtons(float a)
 {
-    return static_cast<int>(a / buttonDiameter);
+    return static_cast<int>(a / buttonDiameter); FIXME
 }
 
 float Panel::calculateButtonArea(float diam)
