@@ -108,8 +108,60 @@ struct CarWash
     You'll need to insert the Person struct from the video in the space below.
  */
 
+struct Limb
+{
+    
+    float sizeOfStep = 1;
+    float limbPosition = 0;
+    bool startWithLeftFoot = true;
 
+    float stepForward();
+    float stepSize();
 
+};
+
+float Limb::stepForward()
+{
+    limbPosition += 1;
+    return limbPosition;
+}
+
+float Limb::stepSize()
+{
+    return sizeOfStep;
+}
+
+struct Person
+{
+    int age;
+    int height;
+    float hairLength;
+    float GPA;
+    unsigned int SATScore;
+    float distanceTraveled = 0.0f;
+
+    float run(float howFast, bool startWithLeftFoot);
+
+    Limb leftFoot, rightFoot;
+};
+
+float Person::run( float howFast, bool startWithLeftFoot )
+{
+    float leftDistance;
+    float rightDistance;
+    if (startWithLeftFoot == true)
+    {
+        leftDistance = leftFoot.stepForward() * howFast;
+        rightDistance = rightFoot.stepForward() * howFast;
+    }
+    else
+    {
+        rightDistance = rightFoot.stepForward() * howFast;
+        leftDistance = leftFoot.stepForward() * howFast;
+    }
+    distanceTraveled = leftDistance + rightDistance;
+    return distanceTraveled;
+}
 
 
  /*
@@ -128,421 +180,398 @@ struct CarWash
  */
 
 
-/*
 
-Thing 1) Coffee maker
-5 properties:
-    1) maximum water temperature (float)
-    2) cup size (int)
-    3) whether cup full (bool)
-    4) type of coffee (espesso/cappuccino/etc) (std::string)
-    5) amount of water remaining in reservoir (float)
-3 things it can do:
-    1) heat water
-    2) deliver correct quantity of heated water
-    3) beep when pouring complete
- */
+
+
 
 struct CoffeeMaker
-{
-    //maximum water temperature in F
+{   
     float maxWaterTemp = 75;
-    //Energy save mode
-    bool energyMode = true;
-    //indicate whether milk requested
+    bool switchedOn = false;
     bool milkRequested = false;
-    //type of coffee (espresso/cappuccino/etc)
     std::string typeOfCoffee = "espresso";
-    //amount of water remaining in reservoir in mls
     float waterRemaining = 500;
 
     struct Cup
     {
-        //cup volume in mls
+        
         float volume = 250;
-        //cup material
         std::string material = "glass";
-        //cup height in cm
         float height = 12;
-        //cup colour
         std::string colour = "black";
-        //indicate whether cup clean
         bool clean = true;
 
-        //fill cup
-        void setCupVolume(float volume);
-        //get fill status
-        bool getCleanStatus(bool clean); //indcates whether cup clean or not
-        //set fill status
-        void setCupColour(std::string colour);
+        void setCupVolume(float vol);
+        bool getCleanStatus(bool cln); 
+        void setCupColour(std::string col);
     };
 
-    //heat water
     void heatWater();
-    //return requested type of coffee
     std::string coffeeType();
-    //beep when pouring complete
-    void beepWhenCupFull(bool cupFull);
+    void switchOff();
 
     Cup customerCup;
 
 };
 
-/*
-Thing 2) Dentist
-5 properties:
-    1) number of patients per day (int)
-    2) maximum number of patients per week (int)
-    3) disposable equipment costs per week (float)
-    4) profit per week (float)
-    5) number of staff (int)
-3 things it can do:
-    1) treat patient
-    2) charge patient fee for service
-    3) pay staff wages
- */
+
+void CoffeeMaker::Cup::setCupVolume(float vol)
+{
+    volume = vol;
+}
+
+bool CoffeeMaker::Cup::getCleanStatus(bool cln)
+{
+    clean = cln;
+    return clean;
+}
+
+void CoffeeMaker::Cup::setCupColour(std::string col)
+{
+    colour = col;
+}
+
+void CoffeeMaker::heatWater()
+{
+    switchedOn = true;
+}
+
+std::string CoffeeMaker::coffeeType()
+{
+    return typeOfCoffee;
+}
+
+void CoffeeMaker::switchOff()
+{
+   switchedOn = false;
+}
+
+
+
 
 struct Dentist 
 {
     
-    //number of patients per day
     int numPatients = 8;
-    //maximum number of patients per week
     int maxPatientsPerWeek = 40;
-    //disposable equipment costs per week
-    double costDisposableEquipment = 2000;
-    //profit per week (float)
-    double profitPerWeek = 20000;
-    //number of staff (int)
+    int costDisposableEquipment = 2000;
+    int profitPerWeek = 20000;
     int numStaff = 20;
 
     struct Person
     {
-        //personName
         std::string name = "Mary";
-        //person age in years
         int age = 35;
-        //person gender
         std::string gender = "female";
-        //personInsuranceCompany 
         std::string insuranceCompany = "No Insurance";
-        //date of last check (ddmmyyyy)
-        int dateOfLastCheck = 01112022;
+        int dateOfLastCheck = 112022;
 
-        //return patient's insurance company
-        std::string getInsuranceCompany(std::string insuranceCompany); //returns name of patient's insurance company
-        //dental treatment deemed necessary
-        int dateOfNextDentalAppointment(int dateOfLastCheck); //returns month when next check will be
-        //cost of work undertaken
-        float costOfDentalTreatment(); //returns cost of treatment
+        std::string getInsuranceCompany(std::string insurance); 
+        int dateOfNextDentalAppointment(int lastCheck); 
+        void setGender(std::string gen); 
     };
 
-    //treat patient
-    void treatPatient(Person name, std::string treatmentClassification);
-    //charge patient fee for service
-    float feeForService(std::string treatmentClassification); //returns cost in dollars of treatment
-    //pay staff wages
-    float payStaff(std::string name); //returns staff member's salary
+    int returnLastCheck(std::string name);
+    float feeForService(std::string treatmentClassification);
+    int payStaff(); 
 
     Person newPatient;
 };
 
-/*
-Thing 3) Automatic public toilet
-5 properties:
-    1) volume of cistern (float)
-    2) volume of cleaning solution reservoir (float)
-    3) number of uses per day (int)
-    4) brightness of lights (int)
-    5) amount of water per flush (float)
-3 things it can do:
-    1) flush
-    2) illuminate
-    3) clean
- */
+
+std::string Dentist::Person::getInsuranceCompany(std::string insurance)
+{
+    insuranceCompany = insurance;
+    return insuranceCompany;
+}
+
+int Dentist::Person::dateOfNextDentalAppointment(int lastCheck)
+{
+    dateOfLastCheck = lastCheck;
+    return dateOfLastCheck + 1;
+}
+
+void Dentist::Person::setGender(std::string gen)
+{
+    gender = gen;
+}
+
+int Dentist::returnLastCheck(std::string name)
+{
+    newPatient.name = name;
+    return newPatient.dateOfLastCheck;
+}
+
+float Dentist::feeForService(std::string treatmentClassification)
+{
+    if( treatmentClassification == "check up" )
+    {
+        return 500;
+    }
+    return 1000;   
+}
+
+int Dentist::payStaff()
+{
+    return (profitPerWeek - costDisposableEquipment)/ numStaff; 
+}
+
+
+
 struct AutomaticPublicToilet
 {
 
-    //volume of cistern in litres 
     float volumeOfCistern = 5;
-    //volume of cleaning reservoir in litres
     float volumeOfCleaningReservoir = 20;
-    //number of uses per day
     int numberOfFlushesPerDay = 40;
-    //brightness of lights sclaaled 1 to 10
     int brightnessOfLights = 4;
-    //amount of water per flush in litres
     float volumeOfWaterPerFlush = 2;
 
-    //flush
     void flushToilet();
-    //illuminate
     void changeBrightness(int requestedBrightness);
-    //clean
     void clean();
 
 };
 
+void AutomaticPublicToilet::flushToilet()
+{
+    
+}
 
-/*
-Thing 4) ATM
-5 properties:
-    1) current amount in machine in dollars (float)
-    2) maximum amount machine can hold in dollars (float)
-    3) number of customers per day (int)
-    4) customer account number (int)
-    5) customer pin number (int)
-3 things it can do:
-    1) dispense cash
-    2) display balance
-    3) dispense receipt
- */
+void AutomaticPublicToilet::changeBrightness(int requestedBrightness)
+{
+    brightnessOfLights = requestedBrightness;
+}
+
+void AutomaticPublicToilet::clean()
+{
+    
+}
+
+
 
 struct ATM
 {
-
-    //current amount in machine in dollars
     double currentAmountAvailable = 20000;
-    //maximum amount machine can hold in dollars
     double maxAmountAvailable = 40000;
-    //number of customers per day
     int numCustomers = 200;
-    //customer account number
     int accountNumCurrentCustomer = 12345678;
-    //customer pin number
     int pinNumCurrentCustomer = 1234;
 
-    //dispense cash
     void dispenseCash();
-    //display balance
-    float displayBalance(int accountNumCurrentCustomer); //returns the customer's balance
-    //dispense receipt
-    void dispenseReceipt(int accountNumCurrentCustomer, double amountWithdrawn);
+    int displayBalance(int accountNum); 
+    void dispenseReceipt(double amountWithdrawn);
 };
 
+void ATM::dispenseCash()
+{
+    
+}
 
-/*
-Thing 5) Cabin
-5 properties:
-    1) Volume in m^3 (float)
-    2) Floor area in cm^2 (float)
-    3) Number of lights (int)
-    4) Wall colour (std::string)
-    5) Capacity in persons (int)
-3 things it can do:
-    1) set size
-    2) set weight
-    3) set capacity
- */
+int ATM::displayBalance(int accountNum)
+{
+    accountNumCurrentCustomer = accountNum;
+    return accountNumCurrentCustomer;
+}
+
+void ATM::dispenseReceipt(double amountWithdrawn)
+{
+    currentAmountAvailable -= amountWithdrawn;
+}
+
+
 
 struct Cabin
 {
-
-    //Volume in cubic metres
-    double volumeOfElevatorCabin = 8;
-    //Floor area in squared metres
-    double floorArea = 3.3;
-    //Number of lights
+    int volumeOfElevatorCabin = 8;
+    int floorArea = 3;
     int numLights = 4;
-    //Wall colour
     std::string wallColour = "white";
-    //Capacity in persons
     int capacityInPersons = 8;
 
-    //set size of cabin
-    double setVolumeOfCabin(double floorArea, int capacityInPersons); //returns volume of cabin
-    //set number of lights
-    int setNumberOfLights(float floorArea, int maxBrightness); //returns number of lights required
-    //get capacity in number of persons
-    int getCapacity(float volumeOfElevatorCabin); //returns maximum capacity for set size
+    int setCapacityOfCabin(int flrArea, int vol); 
+    int setNumberOfLights(int flrArea, int maxBrightness); 
+    int getCapacity(); 
 };
 
+int Cabin::setCapacityOfCabin(int flrArea, int vol)
+{
+    volumeOfElevatorCabin = vol;
+    floorArea = flrArea;
+    int capacity = volumeOfElevatorCabin / floorArea; 
+    return capacity;
+}
 
-/*
-Thing 6) Door
-5 properties:
-    1) Height in cm (float)
-    2) Width in cm (float)
-    3) Speed of movement (float)
-    4) Colour (std::string)
-    5) Status open vs closed (bool)
-3 things it can do:
-    1) Open
-    2) Close 
-    3) Get status (open or closed)
- */
+int Cabin::setNumberOfLights(int flrArea, int maxBrightness)
+{
+    return maxBrightness / flrArea;
+}
+
+int Cabin::getCapacity()
+{
+    return capacityInPersons;
+}
+
+
 struct Door
 {
-
-    //Height in metres
     double height = 2.4;
-    //Width in metres (float)
     double width = 1.2;
-    //Speed of movement in metres per second
     double speedOfMovement = 0.5;
-    //Colour (std::string)
     std::string colour = "grey";
-    //Whether door is closed (false) or open (true)
     bool closureStatus = false;
 
-    //Open
     void open();
-    //Close 
     void close();
-    //Get status (open or closed)
-    bool status(bool closureStatus); //returns true or false according to whether door closed/open
+    bool status(); 
 };
 
+void Door::open()
+{
+    
+}
 
-/*
-Thing 7) Panel
-5 properties:
-    1) Area in cm^2 (int)
-    2) Material (std::string)
-    3) Number of buttons (int)
-    4) Size of buttons (int)
-    5) Brightness of backlighting (int)
-3 things it can do:
-    1) Choose panel size
-    2) Choose number of buttons
-    3) Change size of buttons
- */
+void Door::close()
+{
+    
+}
+
+bool Door::status()
+{
+    return closureStatus;
+}
+
 
 struct Panel
 {
-
-    //Area in squared cm
     float area = 450;
-    //Material
     std::string material = "aluminium";
-    //Number of buttons
     int numButtons = 24;
-    //Diameter of individual buttons in mm
-    float buttonDiameter = 10;
-    //Brightness of backlighting on scale 1 to 10
+    int buttonDiameter = 10;
     int backlightBrightness = 4; 
 
-    //Choose panel size
-    float setSize(int nunmPanelButtons, float buttonSize);  //returns panel size for fixed button number/button size
-    //Choose number of buttons
-    int setNumberOfControlButtons(float area); //returns number of control buttons for specified panel size
-    //Change size of buttons
-    float calculateButtonArea(float buttonDiameter); //calculate area from diameter
+    int setSize(int numPanelButtons, int buttonSize); 
+    int setNumberOfControlButtons(int a); 
+    float calculateButtonArea(float diam); 
     
 };
 
+int Panel::setSize(int numPanelButtons, int buttonSize)
+{
+    return numPanelButtons * buttonSize; 
+}
 
+int Panel::setNumberOfControlButtons(int a)
+{
+    return a / buttonDiameter; 
+}
 
-/*
-Thing 8) Control
-5 properties:
-    1) current floor number (int)
-    2) requested floor number (int)
-    3) maximum floor number (int)
-    4) minimum floor number (int)
-    5) alarm on (bool)
-3 things it can do:
-    1) choose floor number
-    2) raise alarm
-    3) call assistance
- */
+float Panel::calculateButtonArea(float diam)
+{
+    float buttonArea;
+    buttonArea =  3.14f * (diam / 2) * (diam / 2);
+    return buttonArea;
+}
+
 
 struct Control
 {
-
-    //current floor number
     int currentFloor = 1;
-    //requested floor number
     int requestedFloor = 1;
-    //maximum floor number
     int maximumFloor = 12;
-    //minimum floor number
     int minimumFloor = -1;
-    //alarm activation status
     bool alarmActivated = false;
 
-    //choose floor number
-    int getRequestedFloorNumber(int requestedFloor); //returns requested floor number
-    //activate alarm
-    void activateAlarm(bool alarmActivated, bool buttonPressed);
-    //set maximum floor
-    void setMaximumFloor(int maximumFloor);
+    int getRequestedFloorNumber(int reqFloor); 
+    void activateAlarm(bool almActivated);
+    void setMaximumFloor(int max);
 };
 
+int Control::getRequestedFloorNumber(int reqFloor)
+{
+    requestedFloor = reqFloor;
+    return requestedFloor;
+}
 
-/*
-Thing 9) Motor
-5 properties:
-    1) speed of movement (float)
-    2) acceleration (float)
-    3) deceleration (float)
-    4) distance between floors (float)
-    5) weight of passengers (float)
-3 things it can do:
-    1) move up
-    2) move down
-    3) stop
- */
+void Control::activateAlarm(bool almActivated)
+{
+    alarmActivated = almActivated;
+}
+
+void Control::setMaximumFloor(int max)
+{
+    maximumFloor = max;
+}
+
+
 struct Motor
 {
-
-    //speed of movement in metres per second
     double speedOfElevator = 4.3;
-    //acceleration (float)
     double elevatorAcceleration = 0.8;
-    //deceleration (float)
     double elevatorDeceleration = 0.8;
-    //distance between floors
-    double distanceBetweenFloors = 3.6;
-    //weight of passengers 
-    double passengerWeight = 600;
+    std::string direction = "up"; 
+    int passengerWeight = 600;
 
-    //Elevator accelerate
-    void elevatorAccelerate();
-    //Elevator decelerate
-    void elevatorDecelerate();
-    //Get weight of passengers
-    double getWeightOfPassengers(int numberOfPassengers, int AverageWeight); //returns current weight of passengers
+    double elevatorAccelerate();
+    double elevatorDecelerate();
+    double getWeightOfPassengers(int numberOfPassengers, int AverageWeight); 
 };
 
+double Motor::elevatorAccelerate()
+{
+    return elevatorAcceleration;
+}
+
+double Motor::elevatorDecelerate()
+{
+    return elevatorDeceleration;
+}
+
+double Motor::getWeightOfPassengers(int numberOfPassengers, int weight)
+{
+    passengerWeight = weight;
+    return numberOfPassengers * passengerWeight;
+}
 
 
-/*
-Thing 10) Elevator
-5 properties:
-    1) Cabin
-    2) Door
-    3) Panel
-    4) Control
-    5) Motor
-3 things it can do:
-    1) Move up and down
-    2) Open and close
-    3) Remember floor chosen by user
- */
 struct Elevator
 {
-
-    //Make new Cabin
     Cabin cabin;
-    //Make new Door
     Door leftDoor, rightDoor;
-    //Make new Panel
     Panel panel;
-    //Make new Control
     Control control;
-    //Make new Motor
     Motor motor;
 
-    //Move up and down
-    void elevatorAscend(int requestedFloor, double elevatorAcceleration);
-    //Open and close
+    void setDirection(int requested, int current);
     void openDoor();
-    //Remember floor chosen by user
     void storeRequestedFloor(int requestedFloor);
 };
 
 
+void Elevator::setDirection(int requested, int current)
+{
+    control.currentFloor = current;
+    control.requestedFloor = requested;
+    
+    if( control.currentFloor > control.requestedFloor)
+    {
+        motor.direction = "up";
+    }
+    else
+    {
+        motor.direction = "down";
+    }
+}
+
+void Elevator::openDoor()
+{
+    
+}
+
+void Elevator::storeRequestedFloor(int reqFloor)
+{
+    control.requestedFloor = reqFloor;
+}
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
