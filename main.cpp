@@ -308,10 +308,7 @@ float Dentist::feeForService(std::string treatmentClassification)
     {
         return 500;
     }
-    else
-    {
-        return 1000;
-    }
+    return 1000;   
 }
 
 int Dentist::payStaff()
