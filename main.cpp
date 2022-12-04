@@ -43,8 +43,8 @@ int main()
 
 struct CoffeeMaker
 {   
-    CoffeeMaker();
-    float maxWaterTemp = 75;
+    float maxWaterTemp;
+    CoffeeMaker() : maxWaterTemp(75) { }
     bool switchedOn = false;
     bool milkRequested = false;
     std::string typeOfCoffee = "espresso";
@@ -57,10 +57,10 @@ struct CoffeeMaker
         std::string material = "glass";
         float height = 12;
         std::string colour = "black";
-        bool clean = true;
+        bool clean;
 
         void setCupVolume(float vol);
-        bool getCleanStatus(bool cln); 
+        bool getCleanStatus(); 
         void setCupColour(std::string col);
     };
 
@@ -75,6 +75,7 @@ struct CoffeeMaker
 CoffeeMaker::Cup::Cup()
 {
     std::cout << "Cup being constructed!" << std::endl;
+    clean = true;
 }
 
 void CoffeeMaker::Cup::setCupVolume(float vol)
@@ -83,9 +84,9 @@ void CoffeeMaker::Cup::setCupVolume(float vol)
     std::cout << "Cup volume set: " << volume << std::endl;
 }
 
-bool CoffeeMaker::Cup::getCleanStatus(bool cln)
+bool CoffeeMaker::Cup::getCleanStatus()
 {
-    clean = cln;
+    //clean = cln;
     std::cout << "Clean status: " << clean << std::endl;
     return clean;
     
@@ -97,15 +98,11 @@ void CoffeeMaker::Cup::setCupColour(std::string col)
     std::cout << "Colour set as: " << colour << std::endl;
 }
 
-CoffeeMaker::CoffeeMaker()
-{
-    std::cout << "CoffeeMaker being constructed!" << std::endl;
-}
 
 void CoffeeMaker::heatWater()
 {
     switchedOn = true;
-    std::cout << "Water heating..." << switchedOn << std::endl;
+    std::cout << "Water heating..." << switchedOn << " Up to temp: " << maxWaterTemp << std::endl;
 }
 
 std::string CoffeeMaker::coffeeType()
@@ -125,25 +122,26 @@ void CoffeeMaker::switchOff()
 
 struct Dentist 
 {
-    Dentist();
-    int numPatients = 8;
+    Dentist() : numPatients(8), numStaff(20)  { }
+    int numPatients;
     int maxPatientsPerWeek = 40;
     int costDisposableEquipment = 2000;
     int profitPerWeek = 20000;
-    int numStaff = 20;
+    int numStaff;
 
     struct Person
     {
         Person();
-        std::string name = "Mary";
-        int age = 35;
-        std::string gender = "female";
+        std::string name;
+        int age;
+        std::string gender;
+        
         std::string insuranceCompany = "No Insurance";
         int dateOfLastCheck = 112022;
 
         std::string getInsuranceCompany(std::string insurance); 
         int dateOfNextDentalAppointment(int lastCheck); 
-        void setGender(std::string gen); 
+        std::string getGender(); 
     };
 
     int returnLastCheck(std::string name);
@@ -155,33 +153,31 @@ struct Dentist
 
 Dentist::Person::Person()
 {
-    std::cout << "Person being constructed!" << std::endl;
+    name = "Mary ";
+    age = 35;
+    gender = "female";
 }
 
 std::string Dentist::Person::getInsuranceCompany(std::string insurance)
 {
     insuranceCompany = insurance;
-    std::cout <<  name << " Insurance Company: " << insuranceCompany << std::endl;
+    std::cout <<  name << ": Insurance Company: " << insuranceCompany << std::endl;
     return insuranceCompany;
 }
 
 int Dentist::Person::dateOfNextDentalAppointment(int lastCheck)
 {
     dateOfLastCheck = lastCheck;
-    std::cout << name << " Next routine appointment due " << lastCheck + 1 << std::endl;
+    std::cout << name << ": Next routine appointment due " << lastCheck + 1 << std::endl;
     return dateOfLastCheck + 1;
 }
 
-void Dentist::Person::setGender(std::string gen)
+std::string Dentist::Person::getGender()
 {
-    gender = gen;
-    std::cout << name << " Gender: " << gender << std::endl;
+    std::cout << name << ": Gender: " << gender << std::endl;
+    return gender;
 }
 
-Dentist::Dentist()
-{
-    std::cout << "Dentist being constructed!" << std::endl;
-}
 
 int Dentist::returnLastCheck(std::string name)
 {
@@ -213,9 +209,9 @@ int Dentist::payStaff()
 struct AutomaticPublicToilet
 {
 
-    AutomaticPublicToilet();
+    AutomaticPublicToilet() : volumeOfCleaningReservoir(20) { }
     float volumeOfCistern = 5;
-    float volumeOfCleaningReservoir = 20;
+    float volumeOfCleaningReservoir;
     int numberOfFlushesPerDay = 40;
     int brightnessOfLights = 4;
     float volumeOfWaterPerFlush = 2;
@@ -226,10 +222,6 @@ struct AutomaticPublicToilet
 
 };
 
-AutomaticPublicToilet::AutomaticPublicToilet()
-{
-    std::cout << "Constructing Automatic Public Toilet!" << std::endl;
-}
 
 void AutomaticPublicToilet::flushToilet()
 {
@@ -245,6 +237,7 @@ void AutomaticPublicToilet::changeBrightness(int requestedBrightness)
 void AutomaticPublicToilet::clean()
 {
     std::cout << "Initiating clean " << std::endl;
+    std::cout << "Volume of cleaning reservoir: " << volumeOfCleaningReservoir << std::endl;
 }
 
 
@@ -252,7 +245,7 @@ void AutomaticPublicToilet::clean()
 struct ATM
 {
     ATM();
-    double currentAmountAvailable = 20000;
+    double currentAmountAvailable;
     double maxAmountAvailable = 40000;
     int numCustomers = 200;
     int accountNumCurrentCustomer = 12345678;
@@ -265,7 +258,8 @@ struct ATM
 
 ATM::ATM()
 {
-    std::cout << "Constructing ATM!" << std::endl;
+    //std::cout << "Constructing ATM!" << std::endl;
+    currentAmountAvailable = 20000;
 }
 
 void ATM::dispenseCash()
@@ -284,47 +278,43 @@ void ATM::dispenseReceipt(double amountWithdrawn)
 {
     currentAmountAvailable -= amountWithdrawn;
     std::cout << "Dispensing receipt... " << std::endl;
+    std::cout << "Current amount available " << currentAmountAvailable << std::endl;
 }
 
 
 
 struct Cabin
 {
-    Cabin();
-    int volumeOfElevatorCabin = 8;
-    int floorArea = 3;
-    int numLights = 4;
-    std::string wallColour = "white";
-    int capacityInPersons = 8;
+    Cabin() : volumeOfElevatorCabin(8), floorArea(4), numLights(4), wallColour("white"), capacityInPersons(12) { }
+    int volumeOfElevatorCabin;
+    int floorArea;
+    int numLights;
+    std::string wallColour;
+    int capacityInPersons;
 
-    int setCapacityOfCabin(int flrArea, int vol); 
-    int setNumberOfLights(int flrArea, int maxBrightness); 
+    int setCapacityOfCabin(int vol); 
+    int setNumberOfLights(int maxBrightness); 
     int getCapacity(); 
 };
 
-Cabin::Cabin()
-{
-    std::cout << "Constructing Cabin!" << std::endl;
-}
 
-int Cabin::setCapacityOfCabin(int flrArea, int vol)
+int Cabin::setCapacityOfCabin(int vol)
 {
     volumeOfElevatorCabin = vol;
-    floorArea = flrArea;
-    int capacity = volumeOfElevatorCabin / floorArea; 
-    std::cout << "Capacity: " << capacity << std::endl;
-    return capacity;
+    capacityInPersons = volumeOfElevatorCabin / floorArea; 
+    std::cout << "Capacity in persons: " << capacityInPersons << std::endl;
+    return capacityInPersons;
 }
 
-int Cabin::setNumberOfLights(int flrArea, int maxBrightness)
+int Cabin::setNumberOfLights(int maxBrightness)
 {
-    std::cout << "Number of lights: " << maxBrightness / flrArea << std::endl;
-    return maxBrightness / flrArea;
+    std::cout << "Number of lights: " << maxBrightness / floorArea << std::endl;
+    return maxBrightness / floorArea;
 }
 
 int Cabin::getCapacity()
 {
-    std::cout << "Capacity in person: " << capacityInPersons << std::endl;
+    std::cout << "Capacity in persons: " << capacityInPersons << std::endl;
     return capacityInPersons;
 }
 
@@ -334,8 +324,8 @@ struct Door
     Door();
     double height = 2.4;
     double width = 1.2;
-    double speedOfMovement = 0.5;
-    std::string colour = "grey";
+    double speedOfMovement;
+    std::string colour;
     bool closureStatus = false;
 
     void open();
@@ -345,17 +335,20 @@ struct Door
 
 Door::Door()
 {
+    colour = "blue";
+    speedOfMovement = 0.5;
     std::cout << "Constructing Door!" << std::endl;
+    std::cout <<  "Door colour: " << colour << std::endl;
 }
 
 void Door::open()
 {
-    std::cout << "Door status: opening" << std::endl;
+    std::cout << "Door status: opening at " << speedOfMovement << " m/s" << std::endl;
 }
 
 void Door::close()
 {
-    std::cout << "Door status: closing" << std::endl;
+    std::cout << "Door status: closing at " << speedOfMovement << " m/s" <<std::endl;
 }
 
 bool Door::status()
@@ -367,23 +360,17 @@ bool Door::status()
 
 struct Panel
 {
-    Panel();
+    Panel() : buttonDiameter(10) { }
     float area = 450;
     std::string material = "aluminium";
     int numButtons = 24;
-    int buttonDiameter = 10;
+    int buttonDiameter;
     int backlightBrightness = 4; 
 
     int setSize(int numPanelButtons, int buttonSize); 
     int setNumberOfControlButtons(int a); 
     float calculateButtonArea(float diam); 
 };
-
-Panel::Panel()
-{
-    std::cout << "Constructing Panel!" << std::endl;
-}
-
 
 int Panel::setSize(int numPanelButtons, int buttonSize)
 {
@@ -408,22 +395,17 @@ float Panel::calculateButtonArea(float diam)
 
 struct Control
 {
-    Control();
+    Control() : alarmActivated(false) { }
     int currentFloor = 1;
     int requestedFloor = 1;
     int maximumFloor = 12;
     int minimumFloor = -1;
-    bool alarmActivated = false;
+    bool alarmActivated;
 
     int getRequestedFloorNumber(int reqFloor); 
-    void activateAlarm(bool almActivated);
+    bool alarmStatus();
     void setMaximumFloor(int max);
 };
-
-Control::Control()
-{
-    std::cout << "Constructing Control!" << std::endl;
-}
 
 int Control::getRequestedFloorNumber(int reqFloor)
 {
@@ -432,10 +414,10 @@ int Control::getRequestedFloorNumber(int reqFloor)
     return requestedFloor;
 }
 
-void Control::activateAlarm(bool almActivated)
+bool Control::alarmStatus()
 {
-    alarmActivated = almActivated;
     std::cout << "Alarm status: " << alarmActivated << std::endl;
+    return alarmActivated;
 }
 
 void Control::setMaximumFloor(int max)
@@ -449,8 +431,8 @@ struct Motor
 {
     Motor();
     double speedOfElevator = 4.3;
-    double elevatorAcceleration = 0.8;
-    double elevatorDeceleration = 0.8;
+    double elevatorAcceleration;
+    double elevatorDeceleration;
     std::string direction = "up"; 
     int passengerWeight = 600;
 
@@ -461,7 +443,8 @@ struct Motor
 
 Motor::Motor()
 {
-    std::cout << "Constructing Motor!" << std::endl;
+    elevatorAcceleration = 0.8;
+    elevatorDeceleration = 0.8;
 }
 
 double Motor::elevatorAccelerate()
@@ -493,19 +476,22 @@ struct Elevator
     Control control;
     Motor motor;
 
-    void setDirection(int requested, int current);
+    void setDirection(int requested);
     void openDoor();
     void storeRequestedFloor(int requestedFloor);
 };
 
+
 Elevator::Elevator()
 {
+    control.currentFloor = 2;
     std::cout << "Constructing Elevator!" << std::endl;
 }
 
-void Elevator::setDirection(int requested, int current)
+
+void Elevator::setDirection(int requested)
 {
-    control.currentFloor = current;
+    //control.currentFloor = current;
     control.requestedFloor = requested;
     
     if( control.currentFloor > control.requestedFloor)
@@ -557,14 +543,14 @@ int main()
 
     CoffeeMaker::Cup cup;
     cup.setCupVolume(250);
-    cup.getCleanStatus(true);
+    cup.getCleanStatus();
     cup.setCupColour("Green");
 
     Dentist::Person person;
     person.name = "Mary";
     person.getInsuranceCompany("Axis");
     person.dateOfNextDentalAppointment(112022);
-    person.setGender("female");
+    person.getGender();
 
     Dentist dentist;
     dentist.returnLastCheck("Mary");
@@ -582,9 +568,10 @@ int main()
     atm.dispenseReceipt(250);
 
     Cabin cabin;
-    cabin.setCapacityOfCabin(100, 1000);
-    cabin.setNumberOfLights(4, 40);
     cabin.getCapacity();
+    cabin.setCapacityOfCabin(1000);
+    cabin.setNumberOfLights(40);
+    
 
     Door door;
     door.open();
@@ -598,7 +585,7 @@ int main()
 
     Control control;
     control.getRequestedFloorNumber(10);
-    control.activateAlarm(true);
+    control.alarmStatus();
     control.setMaximumFloor(24);
 
     Motor motor;
@@ -607,7 +594,7 @@ int main()
     motor.getWeightOfPassengers(12, 70);
 
     Elevator elevator;
-    elevator.setDirection(12, 2);
+    elevator.setDirection(12);
     elevator.openDoor();
     elevator.storeRequestedFloor(8);
 
