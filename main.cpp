@@ -71,9 +71,6 @@ int main()
 
 
 
-
-
-
 struct CoffeeMaker
 {   
     float maxWaterTemp;
@@ -123,7 +120,6 @@ void CoffeeMaker::Cup::setCupVolume(float vol)
 
 bool CoffeeMaker::Cup::getCleanStatus()
 {
-    //clean = cln;
     std::cout << "Clean status: " << clean << std::endl;
     return clean;  
 }
@@ -162,7 +158,6 @@ std::string CoffeeMaker::coffeeType()
 
 void CoffeeMaker::switchOff()
 {
-    //switchedOn = false;
     std::cout << "Power: " << switchedOn << std::endl;
 }
 
@@ -350,7 +345,6 @@ struct ATM
 
 ATM::ATM()
 {
-    //std::cout << "Constructing ATM!" << std::endl;
     currentAmountAvailable = 20000;
 }
 
