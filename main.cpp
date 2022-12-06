@@ -87,7 +87,7 @@ struct CoffeeMaker
     {
         Cup();
         float volume = 250;
-        std::string material = "glass";
+        bool cupFull;
         float height = 12;
         std::string colour = "black";
         bool clean;
@@ -95,11 +95,14 @@ struct CoffeeMaker
         void setCupVolume(float vol);
         bool getCleanStatus(); 
         void setCupColour(std::string col);
+
+        bool fillingCup(float vol);
     };
 
     void heatWater();
     std::string coffeeType();
     void switchOff();
+    float settingTemperature(float waterTemp);
 
     Cup customerCup;
 
@@ -109,6 +112,7 @@ CoffeeMaker::Cup::Cup()
 {
     std::cout << "Cup being constructed!" << std::endl;
     clean = true;
+    cupFull = false;
 }
 
 void CoffeeMaker::Cup::setCupVolume(float vol)
@@ -121,14 +125,26 @@ bool CoffeeMaker::Cup::getCleanStatus()
 {
     //clean = cln;
     std::cout << "Clean status: " << clean << std::endl;
-    return clean;
-    
+    return clean;  
 }
 
 void CoffeeMaker::Cup::setCupColour(std::string col)
 {
     colour = col;
     std::cout << "Colour set as: " << colour << std::endl;
+}
+
+bool CoffeeMaker::Cup::fillingCup(float vol)
+{
+    float level = 0;
+    while(level < vol)
+    {
+        std::cout << "Filling at level: " << level << std::endl;
+        level += 50;
+    }
+    cupFull = true;
+    std::cout << "Cup full" << std::endl;
+    return cupFull;
 }
 
 
@@ -150,8 +166,17 @@ void CoffeeMaker::switchOff()
     std::cout << "Power: " << switchedOn << std::endl;
 }
 
-
-
+float CoffeeMaker::settingTemperature(float waterTemp)
+{
+    float currentTemp = 0;
+    maxWaterTemp = waterTemp;
+    while (currentTemp < maxWaterTemp)
+    {
+        currentTemp += 10;
+    }
+    std::cout << "Temperature reached" << std::endl;
+    return maxWaterTemp;
+}
 
 struct Dentist 
 {
@@ -175,14 +200,17 @@ struct Dentist
         std::string getInsuranceCompany(std::string insurance); 
         int dateOfNextDentalAppointment(int lastCheck); 
         std::string getGender(); 
+        void numberOfAppointments(int howOld);
     };
 
     int returnLastCheck(std::string name);
     float feeForService(std::string treatmentClassification);
     int payStaff(); 
+    int costPerPatient(int num);
 
     Person newPatient;
 };
+
 
 Dentist::Person::Person()
 {
@@ -211,6 +239,17 @@ std::string Dentist::Person::getGender()
     return gender;
 }
 
+void Dentist::Person::numberOfAppointments(int howOld)
+{
+    age = howOld;
+    int appts = 0;
+    for(int i = 0; i <= howOld; ++i)
+    {
+        appts += 1;   
+    }
+    std::cout << "Number of appointments: " << appts << std::endl;   
+}
+
 
 int Dentist::returnLastCheck(std::string name)
 {
@@ -237,13 +276,21 @@ int Dentist::payStaff()
     return (profitPerWeek - costDisposableEquipment)/ numStaff; 
 }
 
-
+int Dentist::costPerPatient(int num)
+{
+    for(int i = 0; i <= num; i++)
+    {
+        std::cout << "Patient " << i << "cost " << costDisposableEquipment << std::endl;
+    }
+    profitPerWeek = costDisposableEquipment * num * 4;
+    return profitPerWeek;
+}
 
 struct AutomaticPublicToilet
 {
 
     AutomaticPublicToilet() : volumeOfCleaningReservoir(20) { }
-    float volumeOfCistern = 5;
+    bool toiletClean = true;
     float volumeOfCleaningReservoir;
     int numberOfFlushesPerDay = 40;
     int brightnessOfLights = 4;
@@ -252,9 +299,9 @@ struct AutomaticPublicToilet
     void flushToilet();
     void changeBrightness(int requestedBrightness);
     void clean();
+    bool dueCleaning();
 
 };
-
 
 void AutomaticPublicToilet::flushToilet()
 {
@@ -273,7 +320,18 @@ void AutomaticPublicToilet::clean()
     std::cout << "Volume of cleaning reservoir: " << volumeOfCleaningReservoir << std::endl;
 }
 
-
+bool AutomaticPublicToilet::dueCleaning()
+{
+    int useCount = 0;
+    while (useCount < 8)
+    {
+        std::cout << "Used by " << useCount << " persons since clean" << std::endl;
+        useCount += 1;
+    }
+    std::cout << "Due to be cleaned" << std::endl;
+    toiletClean = false;
+    return toiletClean;
+}
 
 struct ATM
 {
@@ -287,6 +345,7 @@ struct ATM
     void dispenseCash();
     int displayBalance(int accountNum); 
     void dispenseReceipt(double amountWithdrawn);
+    double dispensingCash(double amountWithdrawn);
 };
 
 ATM::ATM()
@@ -314,7 +373,17 @@ void ATM::dispenseReceipt(double amountWithdrawn)
     std::cout << "Current amount available " << currentAmountAvailable << std::endl;
 }
 
-
+double ATM::dispensingCash(double amountWithdrawn)
+{
+    double amountDispensed = 0;
+    while (amountDispensed < amountWithdrawn)
+    {
+        amountDispensed += 10;
+    }
+    std::cout << "Dispensing requested amount" << std::endl;
+    maxAmountAvailable -= amountDispensed;
+    return maxAmountAvailable;
+}
 
 struct Cabin
 {
@@ -328,6 +397,8 @@ struct Cabin
     int setCapacityOfCabin(int vol); 
     int setNumberOfLights(int maxBrightness); 
     int getCapacity(); 
+
+    std::string elevatorFull(int capacityInPersons);
 };
 
 
@@ -351,6 +422,18 @@ int Cabin::getCapacity()
     return capacityInPersons;
 }
 
+std::string Cabin::elevatorFull(int capacity)
+{
+    capacityInPersons = capacity;
+    int passenger = 0;
+    while(passenger < capacityInPersons)
+    {
+        passenger += 1;
+        std::cout << "Passenger count: " << passenger << std::endl;
+    }
+    std::cout << "Elevator full" << std::endl;
+    return "Elevator full";
+}
 
 struct Door
 {
@@ -364,12 +447,13 @@ struct Door
     void open();
     void close();
     bool status(); 
+    bool doorsClosing();
 };
 
 Door::Door()
 {
     colour = "blue";
-    speedOfMovement = 0.5;
+    speedOfMovement = 0.25;
     std::cout << "Constructing Door!" << std::endl;
     std::cout <<  "Door colour: " << colour << std::endl;
 }
@@ -390,6 +474,15 @@ bool Door::status()
     return closureStatus;
 }
 
+bool Door::doorsClosing()
+{
+    for(int i = 1; i < 3; i++)
+    {
+        std::cout << "Doors closing " << i <<  std::endl;
+    }
+    closureStatus = true;
+    return closureStatus;
+}
 
 struct Panel
 {
@@ -398,11 +491,12 @@ struct Panel
     std::string material = "aluminium";
     int numButtons = 24;
     int buttonDiameter;
-    int backlightBrightness = 4; 
+    int backlightBrightness = 1; 
 
     int setSize(int numPanelButtons, int buttonSize); 
     int setNumberOfControlButtons(int a); 
     float calculateButtonArea(float diam); 
+    int increaseBrightness(int requestedLvl);
 };
 
 int Panel::setSize(int numPanelButtons, int buttonSize)
@@ -425,11 +519,22 @@ float Panel::calculateButtonArea(float diam)
     return buttonArea;
 }
 
+int Panel::increaseBrightness(int requestedLvl)
+{
+    //int i = backlightBrightness;
+    for(int i = backlightBrightness; i <= requestedLvl; ++i)
+    {
+        std::cout << "Level at " << i << std::endl;
+    }
+    backlightBrightness = requestedLvl;
+    std::cout << "Requested brightness reached " << std::endl;
+    return backlightBrightness;
+}
 
 struct Control
 {
     Control() : alarmActivated(false) { }
-    int currentFloor = 1;
+    int currentFloor = 16;
     int requestedFloor = 1;
     int maximumFloor = 12;
     int minimumFloor = -1;
@@ -438,6 +543,7 @@ struct Control
     int getRequestedFloorNumber(int reqFloor); 
     bool alarmStatus();
     void setMaximumFloor(int max);
+    void floorCounter(int requestedLvl);
 };
 
 int Control::getRequestedFloorNumber(int reqFloor)
@@ -459,11 +565,32 @@ void Control::setMaximumFloor(int max)
     std::cout << "Top floor: " << maximumFloor << std::endl;
 }
 
+void Control::floorCounter(int requestedLvl)
+{
+    requestedFloor = requestedLvl;
+    if (requestedFloor > currentFloor)
+    {
+        for (int i = currentFloor; i < requestedFloor; ++i)
+        {
+            std::cout << "Next level is " << i + 1 << std::endl;
+        }
+        std::cout << "You have arrived at your destination " << std::endl;
+    }
+    else
+    {
+        for (int i = currentFloor; i > requestedFloor; --i)
+        {
+            std::cout << "Next level is " << i + 1 << std::endl;
+        }
+        std::cout << "You have arrived at your destination " << std::endl;
+    }  
+}
+
 
 struct Motor
 {
     Motor();
-    double speedOfElevator = 4.3;
+    double speedOfElevator = 4;
     double elevatorAcceleration;
     double elevatorDeceleration;
     std::string direction = "up"; 
@@ -472,12 +599,14 @@ struct Motor
     double elevatorAccelerate();
     double elevatorDecelerate();
     double getWeightOfPassengers(int numberOfPassengers, int AverageWeight); 
+    double timeToMaxSpeed();
 };
+
 
 Motor::Motor()
 {
-    elevatorAcceleration = 0.8;
-    elevatorDeceleration = 0.8;
+    elevatorAcceleration = 1;
+    elevatorDeceleration = 1;
 }
 
 double Motor::elevatorAccelerate()
@@ -499,6 +628,16 @@ double Motor::getWeightOfPassengers(int numberOfPassengers, int weight)
     return numberOfPassengers * passengerWeight;
 }
 
+double Motor::timeToMaxSpeed()
+{
+    double t = speedOfElevator / elevatorAcceleration;
+    for(int i = 0; i <= t; ++i)
+    {
+        std::cout << "Accelerating" << std::endl;
+    }
+    std::cout << "Max. speed reached" << std::endl;
+    return speedOfElevator;
+}
 
 struct Elevator
 {
@@ -512,6 +651,7 @@ struct Elevator
     void setDirection(int requested);
     void openDoor();
     void storeRequestedFloor(int requestedFloor);
+    void energyUsed(int distanceTraveled);
 };
 
 
@@ -549,6 +689,17 @@ void Elevator::storeRequestedFloor(int reqFloor)
     std::cout << "Requested floor: " << control.requestedFloor << std::endl;
 }
 
+void Elevator::energyUsed(int distanceTraveled)
+{
+    double weight = motor.getWeightOfPassengers(4, 70);
+    
+    for (int i = 0; i <  distanceTraveled; ++i)
+    {
+        double energy = weight * 1 * motor.elevatorAcceleration * i; 
+        std::cout << energy << "joules for " << i << "metres" << std::endl;
+    } 
+}
+
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
@@ -573,63 +724,75 @@ int main()
     coffeemaker.coffeeType();
     coffeemaker.switchedOn = true;
     coffeemaker.switchOff();
+    coffeemaker.settingTemperature(60);
 
     CoffeeMaker::Cup cup;
     cup.setCupVolume(250);
     cup.getCleanStatus();
     cup.setCupColour("Green");
+    cup.fillingCup(200);
 
     Dentist::Person person;
     person.name = "Mary";
     person.getInsuranceCompany("Axis");
     person.dateOfNextDentalAppointment(112022);
     person.getGender();
+    person.numberOfAppointments(24);
 
     Dentist dentist;
     dentist.returnLastCheck("Mary");
     dentist.feeForService("bridge work");
     dentist.payStaff();
+    dentist.costPerPatient(4);
 
     AutomaticPublicToilet toilet;
     toilet.flushToilet();
     toilet.changeBrightness(4);
     toilet.clean();
+    toilet.dueCleaning();
 
     ATM atm;
     atm.dispenseCash();
     atm.displayBalance(12345678);
     atm.dispenseReceipt(250);
+    atm.dispensingCash(200);
 
     Cabin cabin;
     cabin.getCapacity();
     cabin.setCapacityOfCabin(1000);
     cabin.setNumberOfLights(40);
+    cabin.elevatorFull(8);
     
 
     Door door;
     door.open();
     door.close();
     door.status();
+    door.doorsClosing();
 
     Panel panel;
     panel.setSize(12, 2);
     panel.setNumberOfControlButtons(100);
     panel.calculateButtonArea(1.f);
+    panel.increaseBrightness(7);
 
     Control control;
     control.getRequestedFloorNumber(10);
     control.alarmStatus();
     control.setMaximumFloor(24);
+    control.floorCounter(12);
 
     Motor motor;
     motor.elevatorAccelerate();
     motor.elevatorDecelerate();
     motor.getWeightOfPassengers(12, 70);
+    motor.timeToMaxSpeed();
 
     Elevator elevator;
     elevator.setDirection(12);
     elevator.openDoor();
     elevator.storeRequestedFloor(8);
+    elevator.energyUsed(3);
 
     std::cout << "good to go!" << std::endl;
 }
